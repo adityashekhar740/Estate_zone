@@ -1,31 +1,37 @@
 import React, { useEffect, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
+import {  useDispatch, useSelector } from "react-redux";
+import { signInStart,signInFailure,signInSuccess } from "../redux/user/userSlice";
+import OAuth from "../components/OAuth";
 function SignIn() {
   const [formData, setFormData] = useState({});
-  const [loading,setLoading]=useState(false);
-  const [Error,setError]=useState('');
+
+  const {loading,error}=useSelector((state)=>state.user);
+
   const Navigate=useNavigate();
+  const dispatch=useDispatch();
   const handlechange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
   const handleSubmit = async (e) => {
-    setError('');
     e.preventDefault();
-    setLoading(true);
+    dispatch(signInStart());
     try {
-      const res = await axios.post("/api/auth/signin", formData);      
+      const res = await axios.post("/api/auth/signin", formData);   
+      dispatch(signInSuccess(res))  
       Navigate('/');
     } catch (e) {
-      setError(e.response.data);
+   
+      dispatch(signInFailure(e.response.data))
     }
-    setLoading(false);
+    
   };
   return (
     <div className="p-3 max-w-lg mx-auto  mt-[100px] ">
       <h1 className="font-semibold my-7 text-3xl text-center ">Sign In</h1>
        <div>
-        {Error?<p className="text-red-500 text-lg text-center " >{Error}</p>:null}
+        {error?<p className="text-red-500 text-lg text-center " >{error}</p>:null}
       </div>
       <form className="flex flex-col gap-4" action="">
         <input
@@ -51,6 +57,7 @@ function SignIn() {
         >
           {loading?'loading...':'sign up'}
         </button>
+        <OAuth/>
       </form>
       <div className="flex gap-2 mt-4 ">
         <p>Dont Have An Account?</p>

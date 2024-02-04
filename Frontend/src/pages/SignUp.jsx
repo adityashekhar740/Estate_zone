@@ -59,6 +59,7 @@ function SignUp() {
         >
           {loading?'loading...':'sign up'}
         </button>
+        <OAuth/>
       </form>
       <div className="flex gap-2 mt-4 ">
         <p>Have An Account?</p>
