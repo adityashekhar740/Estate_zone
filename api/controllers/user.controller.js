@@ -4,5 +4,9 @@
     })
 }
 
+const uploadimg=(req,res)=>{
+    res.json(req.file.filename)
 
-module.exports={test}
+}
+
+module.exports={test,uploadimg}
