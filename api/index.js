@@ -3,7 +3,9 @@ const mongoose=require('mongoose');
 const dotenv=require('dotenv');
 const userRouter=require('./routes/userRoute');
 const authRouter=require('./routes/authRoute');
+const path=require('path');
 dotenv.config()
+
 
 // mongoose.connect(`${process.env.MONGO}`).then(()=>console.log('database connected')).catch((e)=>{console.log(e)})
 mongoose.connect(`${process.env.MONGO}`).then(() => {
@@ -19,6 +21,9 @@ const cors= require('cors');
 app.use(cors());
 app.use('/api/user',userRouter);
 app.use('/api/auth',authRouter);
+
+app.use(express.static(path.join(__dirname, './public')));
+
 
 
 
