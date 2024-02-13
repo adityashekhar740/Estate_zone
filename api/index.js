@@ -5,7 +5,7 @@ const userRouter=require('./routes/userRoute');
 const authRouter=require('./routes/authRoute');
 const path=require('path');
 dotenv.config()
-
+const cookieParser=require('cookie-parser');
 
 // mongoose.connect(`${process.env.MONGO}`).then(()=>console.log('database connected')).catch((e)=>{console.log(e)})
 mongoose.connect(`${process.env.MONGO}`).then(() => {
@@ -15,7 +15,8 @@ mongoose.connect(`${process.env.MONGO}`).then(() => {
 });
 
 const app=express();
-app.use(express.json())               // this will allow  us to send json to the server
+app.use(express.json());          // this will allow  us to send json to the server
+app.use(cookieParser());
 const cors= require('cors');
 
 app.use(cors());

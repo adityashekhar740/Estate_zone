@@ -8,7 +8,6 @@ function SignIn() {
   const [formData, setFormData] = useState({});
 
   const {loading,error}=useSelector((state)=>state.user);
-
   const Navigate=useNavigate();
   const dispatch=useDispatch();
   const handlechange = (event) => {
@@ -19,11 +18,11 @@ function SignIn() {
     dispatch(signInStart());
     try {
       const res = await axios.post("/api/auth/signin", formData);   
-      dispatch(signInSuccess(res))  
+      dispatch(signInSuccess(res.data))  
       Navigate('/');
-    } catch (e) {
+    } catch (error) {
    
-      dispatch(signInFailure(e.response.data))
+      dispatch(signInFailure(error.response.data))
     }
     
   };
