@@ -3,6 +3,7 @@ const mongoose=require('mongoose');
 const dotenv=require('dotenv');
 const userRouter=require('./routes/userRoute');
 const authRouter=require('./routes/authRoute');
+const listingRouter=require('./routes/listingRoute');
 const path=require('path');
 dotenv.config()
 const cookieParser=require('cookie-parser');
@@ -22,6 +23,7 @@ const cors= require('cors');
 app.use(cors());
 app.use('/api/user',userRouter);
 app.use('/api/auth',authRouter);
+app.use('/api/listing',listingRouter);
 
 app.use(express.static(path.join(__dirname, './public')));
 

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 import { app } from "../firebase";
 import {
   getDownloadURL,
@@ -8,10 +9,11 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 
-import {updateUserSuccess,updateUserFailure,updateUserStart,deleteUserFailure,deleteUserSuccess,deleteUserStart} from '../redux/user/userSlice'
+import {updateUserSuccess,updateUserFailure,updateUserStart,deleteUserFailure,deleteUserSuccess,deleteUserStart, LogOutStart, LogOutSuccess, LogOutFailure} from '../redux/user/userSlice'
 import {useDispatch,useSelector} from 'react-redux';
 
 function Profile() {
+  const navigate=useNavigate();
   const dispatch=useDispatch();
   const { currentUser,loading,error } = useSelector((state) => state.user);
   // const formData = new FormData();
@@ -128,8 +130,16 @@ function Profile() {
   }
 
   const handleLogout=async()=>{
-    const res=await axios.get('/api/auth/logout');
+    try{
+      dispatch(LogOutStart());
+      const res=await axios.get('/api/auth/logout');
+      dispatch(LogOutSuccess())
     console.log(res)
+
+    }
+    catch(e){
+      dispatch(LogOutFailure(e))
+    }
   }
 
   return (
@@ -207,6 +217,7 @@ function Profile() {
         >
           {loading? 'Loading...' : 'Update Profile'}
         </button>
+        <Link className="bg-green-700 p-3 text-white text-center uppercase rounded-lg hover:opacity-95 " to={'/create-listing'} >Create Listing </Link>
       </form>
       <div className="flex justify-between mt-5 px-2 pr-3">
         <span onClick={handleDelete} className="text-red-700 cursor-pointer font-semibold">
