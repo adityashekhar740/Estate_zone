@@ -95,7 +95,6 @@ function Profile() {
   const handleupdate=(e)=>{
     setFormData({...formData,[e.target.id]: e.target.value})
   }
-
   const handlesubmit=async(e)=>{
     e.preventDefault();
     try{
