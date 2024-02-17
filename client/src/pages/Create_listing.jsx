@@ -8,12 +8,16 @@ import React, { useEffect, useState } from "react";
 import { app } from "../firebase";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 
 function Create_listing() {
     const {currentUser}=useSelector((state)=>state.user);
   const [files, setFiles] = useState([]);
   const [imageUploadError, setimageUploadError] = useState(null);
   const [imguploading, setimguploading] = useState(false);
+  const [error,setError]=useState(null);
+  const navigate=useNavigate();
   const [formData, setFormData] = useState({
     imageUrls: [],
     name: "",
@@ -85,6 +89,7 @@ function Create_listing() {
     });
   };
 
+
   const handleRemoveImg = (img) => {
     const temp = formData.imageUrls.filter((image) => {
       return image !== img;
@@ -107,18 +112,38 @@ function Create_listing() {
     }
   };
 
+  useEffect(()=>{
+    if(formData.regularPrice<formData.discountPrice){
+      setError('Discount price should be less than regular price');     
+    }
+    if(formData.regularPrice>=formData.discountPrice){
+      setError(null);
+    }
+  },[formData])
+
 //   useEffect(() => {
 //     console.log(currentUser.username);
 //   }, [formData]);
 
   const handleSubmit=async(e)=>{
     e.preventDefault();
+    if(formData.imageUrls.length===0){
+      setError('you must upload at least one image for creating listing');
+      console.log(error)
+      return;
+    }
+     if(formData.regularPrice<formData.discountPrice){
+      setError('Discount price should be less than regular price');
+      return;
+    }
+    setError(null);
     try{
         const res=await axios.post('/api/listing/create', {
       ...formData,
       userRef: currentUser._id // Add currentUser._id to the request body
     });
         console.log(res)
+        navigate(`/listing/${res.data._id}`)
     }
     catch(e){
         console.log(e)
@@ -139,7 +164,7 @@ function Create_listing() {
             placeholder="Name"
             className="border p-3 rounded-lg"
             maxLength={60}
-            minLength={10}
+            minLength={5}
             required
             id="name"
           />
@@ -216,7 +241,7 @@ function Create_listing() {
               <span>offer</span>
             </div>
           </div>
-          <div className="flex flex-wrap ">
+          <div className="flex flex-wrap gap-y-3 ">
             <div className="flex gap-2 items-center">
               <input
                 onChange={(e) => handleChange(e)}
@@ -239,7 +264,7 @@ function Create_listing() {
                 min={1}
                 max={10}
                 required
-                className="p-3 border-gray-300 border-solid border-[0.5px] rounded-lg"
+                className=" ml-[58px] p-3 border-gray-300 border-solid border-[0.5px] rounded-lg"
               />
               <p>Baths</p>
             </div>
@@ -249,32 +274,38 @@ function Create_listing() {
                 type="number"
                 name=""
                 id="regularPrice"
-                min={1}
-                max={10}
+                min={15000}
+                max={100000000}
                 required
                 className="p-3 border-gray-300 border-solid border-[0.5px] rounded-lg"
               />
               <div>
                 <p>Regular Price</p>
-                <span className="text-xs">($/month)</span>
+                {
+                  formData.type==='rent'?<span className="text-xs">(₹/month)</span>:null
+                }
               </div>
             </div>
-            <div className="flex gap-2 items-center">
+            {
+              formData.offer?<div className="flex gap-2 items-center">
               <input
                 onChange={(e) => handleChange(e)}
                 type="number"
                 name=""
                 id="discountPrice"
-                min={1}
-                max={10}
+                 min={15000}
+                max={100000000}
                 required
                 className="p-3 border-gray-300 border-solid border-[0.5px] rounded-lg"
               />
               <div>
                 <p>Discounted Price</p>
-                <span className="text-xs">($/month)</span>
+                 {
+                  formData.type==='rent'?<span className="text-xs">(₹/month)</span>:null
+                }
               </div>
-            </div>
+            </div>:null
+            }
           </div>
         </div>
 
@@ -333,8 +364,10 @@ function Create_listing() {
           <button className="uppercase p-3 bg-slate-700 rounded-lg text-white hover:opacity-95 disabled:opacity-80 ">
             create listing
           </button>
+          
         </div>
       </form>
+      <p className="text-center mt-10 text-red-700 font-semibold " >{error && error}</p>
     </main>
   );
 }

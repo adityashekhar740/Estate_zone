@@ -12,4 +12,25 @@ const createListing=async(req,res)=>{
     }
 }
 
-module.exports={createListing}
+const showListings=async(req,res)=>{
+    if(req.user.id!==req.params.id){
+        res.status( 403).json("You are not authorized");
+    }
+    else{
+        const listings=await Listing.find({userRef: req.params.id});
+        res.status(201).json(listings);
+    }
+}
+
+const deleteListing=async(req,res)=>{
+    const listing=await Listing.findById({_id:req.params.id})
+    if(!listing){return res.status(400).json("No such Listing exists.")}
+    if(req.user.id!==listing.userRef){
+        return res.status(403).json('you can only delete your own listing');
+    }
+    const deletedListing=await Listing.findByIdAndDelete({_id:req.params.id})
+    res.status(200).json(deletedListing);
+}
+
+
+module.exports={createListing,showListings,deleteListing}

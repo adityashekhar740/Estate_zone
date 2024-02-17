@@ -24,11 +24,15 @@ function Profile() {
   const [fileUploadError, setFileUploadError] = useState(false);
   const [formData, setFormData] = useState({});
   const [update, setUpdate] = useState(false);
+  const [listings,setListings]=useState([]);
 
   const handleChange = async (event) => {
     setfile(event.target.files[0]);
     // setUpdate(true)
   };
+
+
+  
 
   useEffect(() => {
     if (file) {
@@ -106,7 +110,6 @@ function Profile() {
       } )
       dispatch(updateUserSuccess(res.data))
       setUpdate(true);
-      console.log(res)
     }
     catch(e){
       dispatch(updateUserFailure(e.response.data))
@@ -138,6 +141,27 @@ function Profile() {
     }
     catch(e){
       dispatch(LogOutFailure(e))
+    }
+  }
+
+  const handleShowListing=async()=>{
+    try{
+      const response= await axios.get(`/api/listing/listings/${currentUser._id}`);
+      setListings(response.data);
+    }
+    catch(e){
+
+    }
+  }
+
+  const handleDeleteListing=async(id)=>{
+    try{
+      console.log(id)
+      const res=await axios.delete(`/api/listing/delete/${id}`);
+      setListings(listings.filter((item)=> item._id!==id));
+    }
+    catch(e){
+
     }
   }
 
@@ -228,6 +252,27 @@ function Profile() {
       </div>
       <p className="text-center mt-[2rem] text-red-700 font-semibold" >{error && error }</p>
       <p className="text-center mt-[2rem] text-green-700 font-semibold  " >{update && 'USER UPDATED SUCCESSFULLY' }</p>
+      <button className="w-full text-green-700 text-[17px] font-semibold" onClick={handleShowListing} >Show Listings</button>
+      <div className="flex flex-col gap-3 mt-4 " >
+        {
+          listings.length>0?
+          listings.map((card,index)=>(
+            <div className="flex justify-between px-2 rounded-lg border p-4  cursor-pointer  " key={card._id} >
+           <div className="flex gap-4 " >
+             <div className="max-h-[60%]" >
+              <img width={100} className=" object-cover  " src={card.imageUrls} alt="" />
+            </div>
+            <div className="flex items-center " ><p className="hover:border-b-2 border-solid border-gray-700 " >{card.name}</p></div>
+           </div>
+            <div className="flex flex-col justify-center gap-3  " >
+              <button onClick={()=>handleDeleteListing(card._id)} className="text-red-700" >Delete</button>
+              <button className="text-green-700" >Edit</button>
+            </div>
+          </div>
+          ))
+          :null
+        }
+      </div>
     </div>
   );
 }
