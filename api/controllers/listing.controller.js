@@ -32,5 +32,15 @@ const deleteListing=async(req,res)=>{
     res.status(200).json(deletedListing);
 }
 
+const GetListing=async(req,res)=>{
+    const listing=await Listing.findById({_id:req.params.id});
+    if(!listing){
+        return res.status(400).json('The listing you want to edit does not exist');          
+    }
+    if(req.user.id!==listing.userRef){
+        return res.status(403).json('You can only edit your  own listing');
+    }
+    res.status(200).send(listing);
+}
 
-module.exports={createListing,showListings,deleteListing}
+module.exports={createListing,showListings,deleteListing,GetListing}

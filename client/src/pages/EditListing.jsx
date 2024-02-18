@@ -8,15 +8,16 @@ import React, { useEffect, useState } from "react";
 import { app } from "../firebase";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 
-function Create_listing() {
+function EditListing() {
     const {currentUser}=useSelector((state)=>state.user);
   const [files, setFiles] = useState([]);
   const [imageUploadError, setimageUploadError] = useState(null);
   const [imguploading, setimguploading] = useState(false);
   const [error,setError]=useState(null);
+  const [listingData, setlistingData] = useState({})
   const navigate=useNavigate();
   const [formData, setFormData] = useState({
     imageUrls: [],
@@ -89,6 +90,22 @@ function Create_listing() {
     });
   };
 
+  const id=useParams();
+
+  useEffect(()=>{
+    const getdata=async()=>{
+        try{
+            const data=await axios.get(`/api/listing/GetListing/${id.id}`);
+            setlistingData(data.data);
+            console.log(data.data)
+        }
+        catch(e){
+            console.log(e);
+        }
+
+    }
+    getdata();
+  },[])
 
   const handleRemoveImg = (img) => {
     const temp = formData.imageUrls.filter((image) => {
@@ -161,6 +178,7 @@ function Create_listing() {
       <form onSubmit={(e)=>handleSubmit(e)} className="flex flex-col sm:flex-row gap-4 " action="">
         <div className="flex flex-col gap-4 flex-1 ">
           <input
+          defaultValue={listingData.name}
             onChange={(e) => handleChange(e)}
             type="text"
             placeholder="Name"
@@ -171,6 +189,7 @@ function Create_listing() {
             id="name"
           />
           <textarea
+          defaultValue={listingData.description}
             onChange={(e) => handleChange(e)}
             type="text"
             placeholder="Description"
@@ -181,6 +200,7 @@ function Create_listing() {
             id="description"
           />
           <input
+          defaultValue={listingData.address}
             onChange={(e) => handleChange(e)}
             type="text"
             placeholder="Address"
@@ -246,6 +266,7 @@ function Create_listing() {
           <div className="flex flex-wrap gap-y-3 ">
             <div className="flex gap-2 items-center">
               <input
+              defaultValue={listingData.bedrooms}
                 onChange={(e) => handleChange(e)}
                 type="number"
                 name=""
@@ -259,6 +280,7 @@ function Create_listing() {
             </div>
             <div className="flex gap-2 items-center">
               <input
+              defaultValue={listingData.bathrooms}
                 onChange={(e) => handleChange(e)}
                 type="number"
                 name=""
@@ -272,6 +294,7 @@ function Create_listing() {
             </div>
             <div className="flex gap-2 items-center">
               <input
+              defaultValue={listingData.regularPrice}
                 onChange={(e) => handleChange(e)}
                 type="number"
                 name=""
@@ -291,6 +314,7 @@ function Create_listing() {
             {
               formData.offer?<div className="flex gap-2 items-center">
               <input
+              defaultValue={listingData.discountPrice}
                 onChange={(e) => handleChange(e)}
                 type="number"
                 name=""
@@ -374,4 +398,4 @@ function Create_listing() {
   );
 }
 
-export default Create_listing;
+export default EditListing;
