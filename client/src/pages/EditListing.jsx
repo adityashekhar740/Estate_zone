@@ -173,7 +173,7 @@ function EditListing() {
   return (
     <main className="p-3 max-w-4xl mx-auto">
       <h1 className="text-3xl font-semibold text-center my-7 ">
-        Create A Listing
+        Edit A Listing
       </h1>
       <form onSubmit={(e)=>handleSubmit(e)} className="flex flex-col sm:flex-row gap-4 " action="">
         <div className="flex flex-col gap-4 flex-1 ">

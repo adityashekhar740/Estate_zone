@@ -43,4 +43,28 @@ const GetListing=async(req,res)=>{
     res.status(200).send(listing);
 }
 
-module.exports={createListing,showListings,deleteListing,GetListing}
+const UpdateListing=async(req,res)=>{
+    const listing=await Listing.findById({_id:req.params.id});
+    if(!listing){
+        res.status(400).json('No Listing found');
+        return;
+    }
+    else{
+        // if(listing.userRef!==req.user.id){
+        //     res.status(403).json('You can only  update your own listing');
+        //     return;
+        // }
+        try{
+            const updatedListing=await Listing.findByIdAndUpdate({_id:req.params.id},
+                req.body,
+                {new:true}
+                )
+                res.status(200).json(updatedListing);
+        }
+        catch(e){
+            res.status(500).json('not able to update user');
+        }
+    }
+}
+
+module.exports={createListing,showListings,deleteListing,GetListing,UpdateListing}
