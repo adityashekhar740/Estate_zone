@@ -96,7 +96,7 @@ function EditListing() {
     const getdata=async()=>{
         try{
             const data=await axios.get(`/api/listing/GetListing/${id.id}`);
-            setlistingData(data.data);
+            setFormData(data.data);
             console.log(data.data)
         }
         catch(e){
@@ -157,18 +157,23 @@ function EditListing() {
     }
     setError(null);
     try{
-        const res=await axios.post('/api/listing/create', {
+        const res=await axios.post(`/api/listing/update/${id.id}`, {
       ...formData,
       userRef: currentUser._id // Add currentUser._id to the request body
     });
         console.log(res)
-        navigate(`/listing/${res.data._id}`)
+        if(res)alert('updated successfully');
+        // navigate(`/listing/${res.data._id}`)
     }
     catch(e){
         console.log(e)
     }
 
   }
+
+  useEffect(()=>{
+  console.log(formData);
+  });
 
   return (
     <main className="p-3 max-w-4xl mx-auto">
@@ -178,7 +183,7 @@ function EditListing() {
       <form onSubmit={(e)=>handleSubmit(e)} className="flex flex-col sm:flex-row gap-4 " action="">
         <div className="flex flex-col gap-4 flex-1 ">
           <input
-          defaultValue={listingData.name}
+          defaultValue={formData.name}
             onChange={(e) => handleChange(e)}
             type="text"
             placeholder="Name"
@@ -189,7 +194,7 @@ function EditListing() {
             id="name"
           />
           <textarea
-          defaultValue={listingData.description}
+          defaultValue={formData.description}
             onChange={(e) => handleChange(e)}
             type="text"
             placeholder="Description"
@@ -200,7 +205,7 @@ function EditListing() {
             id="description"
           />
           <input
-          defaultValue={listingData.address}
+          defaultValue={formData.address}
             onChange={(e) => handleChange(e)}
             type="text"
             placeholder="Address"
@@ -266,7 +271,7 @@ function EditListing() {
           <div className="flex flex-wrap gap-y-3 ">
             <div className="flex gap-2 items-center">
               <input
-              defaultValue={listingData.bedrooms}
+              defaultValue={formData.bedrooms}
                 onChange={(e) => handleChange(e)}
                 type="number"
                 name=""
@@ -280,7 +285,7 @@ function EditListing() {
             </div>
             <div className="flex gap-2 items-center">
               <input
-              defaultValue={listingData.bathrooms}
+              defaultValue={formData.bathrooms}
                 onChange={(e) => handleChange(e)}
                 type="number"
                 name=""
@@ -294,7 +299,7 @@ function EditListing() {
             </div>
             <div className="flex gap-2 items-center">
               <input
-              defaultValue={listingData.regularPrice}
+              defaultValue={formData.regularPrice}
                 onChange={(e) => handleChange(e)}
                 type="number"
                 name=""
@@ -314,7 +319,7 @@ function EditListing() {
             {
               formData.offer?<div className="flex gap-2 items-center">
               <input
-              defaultValue={listingData.discountPrice}
+              defaultValue={formData.discountPrice}
                 onChange={(e) => handleChange(e)}
                 type="number"
                 name=""
@@ -388,7 +393,7 @@ function EditListing() {
               ))
             : null}
           <button className="uppercase p-3 bg-slate-700 rounded-lg text-white hover:opacity-95 disabled:opacity-80 ">
-            create listing
+            EDIT LISTING
           </button>
           
         </div>

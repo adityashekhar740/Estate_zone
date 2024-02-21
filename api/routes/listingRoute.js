@@ -7,8 +7,8 @@ const router=express.Router();
 router.post('/create',createListing);
 router.get('/listings/:id',verifyToken,showListings);
 router.delete('/delete/:id',verifyToken,deleteListing);
-router.get('/GetListing/:id',GetListing);
-router.post('/update/:id',UpdateListing);
+router.get('/GetListing/:id',verifyToken,GetListing);
+router.post('/update/:id',verifyToken,UpdateListing);
 
 
 module.exports=router;

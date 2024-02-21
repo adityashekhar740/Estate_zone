@@ -49,11 +49,12 @@ const UpdateListing=async(req,res)=>{
         res.status(400).json('No Listing found');
         return;
     }
+
     else{
-        // if(listing.userRef!==req.user.id){
-        //     res.status(403).json('You can only  update your own listing');
-        //     return;
-        // }
+        if(listing.userRef!==req.user.id){
+            res.status(403).json('You can only  update your own listing');
+            return;
+        }
         try{
             const updatedListing=await Listing.findByIdAndUpdate({_id:req.params.id},
                 req.body,
