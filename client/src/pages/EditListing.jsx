@@ -25,10 +25,10 @@ function EditListing() {
     description: "",
     address: "",
     type: "rent",
-    bedrooms: 1,
-    bathrooms: 1,
-    regularPrice: 0,
-    discountPrice: 0,
+    bedrooms: '',
+    bathrooms: '',
+    regularPrice: '',
+    discountPrice: '',
     offer: false,
     parking: false,
     furnished: false,
@@ -161,9 +161,8 @@ function EditListing() {
       ...formData,
       userRef: currentUser._id // Add currentUser._id to the request body
     });
-        console.log(res)
-        if(res)alert('updated successfully');
-        // navigate(`/listing/${res.data._id}`)
+        console.log(res);
+        navigate(`/listing/${id.id}`)
     }
     catch(e){
         console.log(e)
@@ -171,9 +170,7 @@ function EditListing() {
 
   }
 
-  useEffect(()=>{
-  console.log(formData);
-  });
+ 
 
   return (
     <main className="p-3 max-w-4xl mx-auto">

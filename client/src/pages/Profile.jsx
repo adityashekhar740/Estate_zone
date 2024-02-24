@@ -291,7 +291,7 @@ function Profile() {
       <div className="flex flex-col gap-3 mt-4 ">
         {listings.length > 0
           ? listings.map((card, index) => (
-              <div
+              <Link to={`/listing/${card._id}`}
                 className="flex justify-between px-2 rounded-lg border p-4  cursor-pointer  "
                 key={card._id}
               >
@@ -314,6 +314,7 @@ function Profile() {
                   <button
                     onClick={() => handleDeleteListing(card._id)}
                     className="text-red-700"
+                    
                   >
                     Delete
                   </button>
@@ -321,7 +322,7 @@ function Profile() {
                     <button className="text-green-700">Edit</button>
                   </NavLink>
                 </div>
-              </div>
+              </Link>
             ))
           : null}
       </div>

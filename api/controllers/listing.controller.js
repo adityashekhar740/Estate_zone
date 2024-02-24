@@ -37,9 +37,7 @@ const GetListing=async(req,res)=>{
     if(!listing){
         return res.status(400).json('The listing you want to edit does not exist');          
     }
-    if(req.user.id!==listing.userRef){
-        return res.status(403).json('You can only edit your  own listing');
-    }
+   
     res.status(200).send(listing);
 }
 
