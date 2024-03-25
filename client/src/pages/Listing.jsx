@@ -56,9 +56,11 @@ function Listing() {
       {loading && <h1 className="text-center my-7 ">Loading...</h1>}
       {error && <h1 className="text-center my-7 ">Something went Wrong</h1>}
       {listingData && !loading && !error ? (
-        <div className="w-full ">
+
+
+        <div className="w-full h-[100vh] ">
           <ControlledCarousel images={listingData.imageUrls} />
-          <div className=" mx-[10%] sm:mx-auto w-[55%] mt-7 flex flex-col gap-[10px] pb-4 ">
+          <div className=" h-[40%] mx-[10%] sm:mx-auto w-[55%] mt-7 flex flex-col gap-[10px] pb-4 ">
             <div className="flex flex-col">
               <h1 className="text-[22px] font-semibold ">
                 {listingData.name} - ₹ {listingData.regularPrice}{" "}
@@ -83,7 +85,7 @@ function Listing() {
               {" "}
               For {listingData.type}
             </button>
-            <div className="flex gap-3">
+            <div className=" flex flex-col gap-[10px]   2xl:flex 2xl:gap-3   ">
               <span className="text-[green] flex items-center gap-2  text-[14px] sm:text-[18px] ">
                 {" "}
                 •<FaBed />

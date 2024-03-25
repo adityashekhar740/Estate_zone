@@ -142,7 +142,7 @@ function Create_listing() {
     try{
         const res=await axios.post('/api/listing/create', {
       ...formData,
-      userRef: currentUser._id // Add currentUser._id to the request body
+      
     });
         console.log(res)
         navigate(`/listing/${res.data._id}`)

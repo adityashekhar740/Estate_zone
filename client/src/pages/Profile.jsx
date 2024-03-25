@@ -183,16 +183,8 @@ function Profile() {
           ref={fileRef}
           accept="image/*"
         />
-        {formData.avatar ? (
-          <img
-            src={formData.avatar}
-            onClick={() => {
-              fileRef.current.click();
-            }}
-            className="rounded-full h-24 w-24 cursor-pointer mx-auto object-cover"
-            alt="ProfilePic"
-          />
-        ) : (
+        {currentUser.avatar && 
+          (
           <img
             src={currentUser.avatar}
             onClick={() => {
