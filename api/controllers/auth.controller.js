@@ -24,6 +24,7 @@ const signup = async (req, res) => {
 const signin= async(req,res)=>{
   const {username,password}=req.body
   const validateUser=await userModel.findOne({username})
+  console.log(validateUser)
   if(!validateUser){
    return res.status(404).json('User not found');
   }

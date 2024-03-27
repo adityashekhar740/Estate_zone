@@ -1,4 +1,5 @@
-const Listing = require("../models/listing")
+const Listing = require("../models/listing");
+const UserModel= require("../models/user");
 
 const createListing=async(req,res)=>{
     console.log(req.body)
@@ -66,4 +67,11 @@ const UpdateListing=async(req,res)=>{
     }
 }
 
-module.exports={createListing,showListings,deleteListing,GetListing,UpdateListing}
+const sendMsg= async(req,res)=>{
+    const {msg,sender}=req.body;
+    const listing=await Listing.findById({_id:req.params.id});
+    const receiver=await UserModel.findById({_id:listing.userRef});
+    console.log(receiver);
+}
+
+module.exports={createListing,showListings,deleteListing,GetListing,UpdateListing,sendMsg}

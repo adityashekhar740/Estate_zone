@@ -8,12 +8,18 @@ import { FaShower } from "react-icons/fa";
 import { RiParkingBoxFill } from "react-icons/ri";
 import { FaChair } from "react-icons/fa";
 import { IoIosShareAlt } from "react-icons/io";
+import {  useSelector } from "react-redux";
+
 
 function Listing() {
+  const {currentUser}=useSelector((state)=>state.user);
+    
+
   const [listingData, setListingData] = useState(null);
   const [loading, setloading] = useState(false);
   const [error, setError] = useState(null);
   const [copy, setCopy] = useState(false);
+  const [msg , setMsg]=useState('');
   const id = useParams();
 
   useEffect(() => {
@@ -32,6 +38,21 @@ function Listing() {
     };
     getData();
   }, []);
+
+  const handleSendMsg=async()=>{
+    // setError(null);
+    // setloading(true);
+    try{
+      const res=await axios.post(`/api/listing/sendMsg/${id.id}`,{
+        msg,
+        sender: currentUser.email
+      });
+      console.log(res)
+    }
+    catch(e){
+      console.log(e);
+    }
+  }
 
   return (
     <main>
@@ -107,7 +128,13 @@ function Listing() {
                 {listingData.parking ? null : "Not"} Furnished
               </span>
             </div>
+
+            <div className="flex flex-col my-2 gap-2 " >
+              <textarea onChange={(e)=>{setMsg(e.target.value)}} className="p-1" name="" id="" cols="30" rows="4"></textarea>
+              <button   onClick={handleSendMsg} className="bg-gray-600 rounded-sm h-[42px] text-white hover:opacity-90 uppercase " >Send Message</button>
+            </div>
           </div>
+          <div className="w-full h-[25%]" ></div>
         </div>
       ) : null}
     </main>
