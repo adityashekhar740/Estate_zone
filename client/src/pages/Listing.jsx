@@ -45,7 +45,7 @@ function Listing() {
     try{
       const res=await axios.post(`/api/listing/sendMsg/${id.id}`,{
         msg,
-        sender: currentUser.email
+        sender: currentUser.username
       });
       console.log(res)
     }
@@ -130,7 +130,7 @@ function Listing() {
             </div>
 
             <div className="flex flex-col my-2 gap-2 " >
-              <textarea onChange={(e)=>{setMsg(e.target.value)}} className="p-1" name="" id="" cols="30" rows="4"></textarea>
+              <textarea onChange={(e)=>{setMsg(e.target.value)}} className="p-1 border " name="" id="" cols="30" rows="4"></textarea>
               <button   onClick={handleSendMsg} className="bg-gray-600 rounded-sm h-[42px] text-white hover:opacity-90 uppercase " >Send Message</button>
             </div>
           </div>

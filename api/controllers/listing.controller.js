@@ -1,5 +1,8 @@
 const Listing = require("../models/listing");
 const UserModel= require("../models/user");
+const nodemailer=require("nodemailer");
+const dotenv=require('dotenv');
+dotenv.config();
 
 const createListing=async(req,res)=>{
     console.log(req.body)
@@ -71,7 +74,31 @@ const sendMsg= async(req,res)=>{
     const {msg,sender}=req.body;
     const listing=await Listing.findById({_id:req.params.id});
     const receiver=await UserModel.findById({_id:listing.userRef});
-    console.log(receiver);
+
+     const transporter=nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+    secure: true,
+        auth:{
+            user:`shekharaditya740@gmail.com`,
+            pass:`${process.env.MAIL_PASS}`
+        }
+    })
+
+    let mailOptions={
+        from:`shekharaditya740@gmail.com`,
+        to:`${receiver.email}`,
+        subject:`${sender} on Estatezone is interested in your property and want to make a deal`,
+        text:`${msg}`
+    }
+    transporter.sendMail(mailOptions,(err,info)=>{
+        if(err){
+            return console.log(err);
+        }
+        console.log('msg sent');
+    })
+   
+   
 }
 
 module.exports={createListing,showListings,deleteListing,GetListing,UpdateListing,sendMsg}

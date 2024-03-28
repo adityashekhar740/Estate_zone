@@ -5,7 +5,7 @@ const userRouter=require('./routes/userRoute');
 const authRouter=require('./routes/authRoute');
 const listingRouter=require('./routes/listingRoute');
 const path=require('path');
-dotenv.config()
+dotenv.config();
 const cookieParser=require('cookie-parser');
 
 // mongoose.connect(`${process.env.MONGO}`).then(()=>console.log('database connected')).catch((e)=>{console.log(e)})
