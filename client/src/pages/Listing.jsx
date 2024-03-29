@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import ControlledCarousel from "../components/ControlledCarousel";
 import { FaLocationDot } from "react-icons/fa6";
 import { FaBed } from "react-icons/fa";
@@ -8,12 +8,11 @@ import { FaShower } from "react-icons/fa";
 import { RiParkingBoxFill } from "react-icons/ri";
 import { FaChair } from "react-icons/fa";
 import { IoIosShareAlt } from "react-icons/io";
-import {  useSelector } from "react-redux";
-
+import { useSelector } from "react-redux";
 
 function Listing() {
   const {currentUser}=useSelector((state)=>state.user);
-    
+    const navigate=useNavigate();
 
   const [listingData, setListingData] = useState(null);
   const [loading, setloading] = useState(false);
@@ -45,15 +44,16 @@ function Listing() {
     try{
       const res=await axios.post(`/api/listing/sendMsg/${id.id}`,{
         msg,
-        sender: currentUser.username
+        sender: (currentUser && currentUser.username) || ''
       });
-      console.log(res)
     }
     catch(e){
       console.log(e);
+     if(e.response.data==="USER UNAUTHORIZED"){
+       navigate('/signin');
+     }
     }
   }
-
   return (
     <main>
       <div

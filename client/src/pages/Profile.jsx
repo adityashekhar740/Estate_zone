@@ -284,7 +284,7 @@ function Profile() {
         {listings.length > 0
           ? listings.map((card, index) => (
               <Link to={`/listing/${card._id}`}
-                className="flex justify-between px-2 rounded-lg border p-4  cursor-pointer  "
+                className="flex justify-between px-2 rounded-lg border p-4 cursor-default    "
                 key={card._id}
               >
                 <div className="flex gap-4 ">
@@ -296,8 +296,8 @@ function Profile() {
                       alt=""
                     />
                   </div>
-                  <div className="flex items-center ">
-                    <p className="hover:border-b-2 border-solid border-gray-700 ">
+                  <div className="flex items-center cursor-pointer ">
+                    <p className="  hover:border-b-2 border-solid border-gray-700 ">
                       {card.name}
                     </p>
                   </div>

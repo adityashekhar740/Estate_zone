@@ -101,4 +101,17 @@ const sendMsg= async(req,res)=>{
    
 }
 
-module.exports={createListing,showListings,deleteListing,GetListing,UpdateListing,sendMsg}
+const showRecentListings=async(req,res)=>{
+    try{
+        const allListings=await Listing.find().sort({createdAt:-1}).limit(3);
+    console.log(allListings);
+    res.status(200).json(allListings);
+   
+    }
+    catch(e){
+        console.log(e);
+        res.status(500).json("not able to show recent Listings");
+    }
+}
+
+module.exports={createListing,showListings,deleteListing,GetListing,UpdateListing,sendMsg,showRecentListings}
