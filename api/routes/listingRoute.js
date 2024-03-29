@@ -1,5 +1,5 @@
 const express=require('express');
-const { createListing,showListings, deleteListing,GetListing, UpdateListing , sendMsg,showRecentListings} = require('../controllers/listing.controller');
+const { createListing,showListings, deleteListing,GetListing, UpdateListing , sendMsg,showRecentListings,showAllListings} = require('../controllers/listing.controller');
 const verifyToken = require('../utils/verifyToken');
 const router=express.Router();
 
@@ -11,6 +11,7 @@ router.get('/GetListing/:id',GetListing);
 router.post('/update/:id',verifyToken,UpdateListing);
 router.post('/sendMsg/:id',verifyToken,sendMsg);
 router.get('/recentListings',showRecentListings);
+router.get('/listings', showAllListings);
 
 
 module.exports=router;

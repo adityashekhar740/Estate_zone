@@ -114,4 +114,18 @@ const showRecentListings=async(req,res)=>{
     }
 }
 
-module.exports={createListing,showListings,deleteListing,GetListing,UpdateListing,sendMsg,showRecentListings}
+const showAllListings=async(req,res)=>{
+    try{
+        const listings=await Listing.find().sort({createdAt:-1});
+    if(!listings){
+        return res.status(200).json('Currently no listings to show');
+    }
+    res.status(200).json(listings);                            
+    }
+    catch(e){
+        res.status(500).json('Internal Server Errorrrrr');
+    }
+}
+
+
+module.exports={createListing,showListings,deleteListing,GetListing,UpdateListing,sendMsg,showRecentListings,showAllListings}

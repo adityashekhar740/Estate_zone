@@ -4,9 +4,9 @@ import { GiHouseKeys } from "react-icons/gi";
 import { IoHome } from "react-icons/io5";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
-import { FaLocationDot } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Card from "../components/Card";
 
 function Home() {
   const [RecentListings, setRecentListings] = useState([]);
@@ -74,38 +74,7 @@ function Home() {
           <div className="w-full mx-auto mt-4 flex gap-7  justify-center flex-wrap ">
             {RecentListings.length > 0
               ? RecentListings.map((listing, index) => (
-                  <NavLink to={`/listing/${listing._id}`} className="w-[30%] min-w-[215px] flex flex-col gap-3 border-[0.5px] shadow-sm border-solid border-gray-200 rounded-lg px-4 py-6 hover:border-gray-400 hover-border-[1px]  ">
-                    {listing.imageUrls.length > 0 ? (
-                      <img src={listing.imageUrls[0]} alt="" />
-                    ) : null}
-                    <div className="flex flex-col gap-1   ">
-                      <h1 className="text-xl font-semibold  ">
-                        {listing.name}
-                      </h1>
-                      <div className="flex gap-2 items-center text-sm ">
-                        <FaLocationDot className="text-[red]" />
-                        <p className="text-gray-700"> {listing.address}</p>
-                      </div>
-                      <p className="text-gray-700 text-sm ">
-                        {listing.description}
-                      </p>
-                      {listing.discountPrice ? (
-                        <h1 className="text-lg font-semibold text-[green] ">
-                          ₹ {listing.discountPrice}
-                          {listing.type === "rent" ? <span>/month</span> : null}
-                        </h1>
-                      ) : (
-                        <h1 className="text-lg font-semibold text-[green] ">
-                          ₹ {listing.regularPrice}
-                          {listing.type === "rent" ? <span>/month</span> : null}
-                        </h1>
-                      )}
-                      <div className="w-[35%] flex justify-between font-semibold ">
-                        <span>{listing.bedrooms} Beds</span>
-                        <span>{listing.bathrooms} Baths</span>
-                      </div>
-                    </div>
-                  </NavLink>
+                  <Card listing={listing} />
                 ))
               : null}
           </div>
