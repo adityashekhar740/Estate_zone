@@ -14,6 +14,7 @@ mongoose.connect(`${process.env.MONGO}`).then(() => {
 }).catch((error) => {
   console.error('Error connecting to database:', error);
 });
+ const __dir=path.resolve();
 
 const app=express();
 app.use(express.json());          // this will allow  us to send json to the server
@@ -25,8 +26,11 @@ app.use('/api/user',userRouter);
 app.use('/api/auth',authRouter);
 app.use('/api/listing',listingRouter);
 
-app.use(express.static(path.join(__dirname, './public')));
+app.use(express.static(path.join(__dir, '/client/dist')));
 
+app.get('*',(req,res)=>{
+  app.sendFile(path.join(__dir,'client','dist','index.html'));
+})
 
 
 
