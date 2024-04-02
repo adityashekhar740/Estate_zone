@@ -4,7 +4,7 @@ import { FaLocationDot } from "react-icons/fa6";
 
 function Card({listing}) {
   return (
-    <NavLink to={`/listing/${listing._id}`} className="w-[30%] min-w-[215px] flex flex-col gap-3 border-[0.5px] shadow-sm border-solid border-gray-300 rounded-sm  hover:border-gray-400 hover-border-[1px]  ">
+    <NavLink to={`/listing/${listing._id}`} className="  sm:w-[30%] min-w-[300px] flex flex-col gap-3 border-[0.5px] shadow-sm border-solid border-gray-300 rounded-sm  hover:border-gray-400 hover-border-[1px]  ">
                     {listing.imageUrls.length > 0 ? (
                       <img className='object-cover max-w-[100%] max-h-[242px] rounded-t-sm  '  src={listing.imageUrls[0]} alt="" />
                     ) : null}
