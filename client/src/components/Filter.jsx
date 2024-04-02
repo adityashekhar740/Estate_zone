@@ -16,15 +16,13 @@ function Filter() {
     furnished: false,
     sort: "latest",
   });
-  const [dataBackup,setDataBackup]=useState([]);
   const [data, setdata] = useState([]);
   const { Listings, loading, error } = useSelector((state) => state.Listings);
   const { filters } = useSelector((state) => state.filter);
   useEffect(() => {
     setdata(Listings);
-    setDataBackup(Listings);
-  }, []);
-  
+    }, []);
+ 
  
   const dispatch = useDispatch();
 
@@ -39,20 +37,16 @@ function Filter() {
     } else if (name === "sort") {
       setfiltersState({ ...filtersState, sort: value });
     } else {
-      setfiltersState({ ...filtersState, [id]: true });
+      const toggle= checked? true:false;
+      setfiltersState({ ...filtersState, [id]: toggle });
     }
   };
-useEffect(()=>{
-  console.log(dataBackup)
-},[dataBackup])
-  useEffect(()=>{
-    console.log(data);
-  },[data]);
+
+  
 
   const handleSubmit = (e) => {
 
     var temp=[...data];
-    console.log(data)
     if(filtersState.searchTerm){
      temp= temp.filter((listting)=>{
         return listting.name.toLowerCase().includes(filtersState.searchTerm.toLowerCase());
@@ -68,7 +62,8 @@ useEffect(()=>{
         temp= temp.filter((listing)=>{
           return listing.type==='sell';
         })
-      } 
+      }
+
     }
     if(filtersState.offer){
      temp=temp.filter((listing)=>{
@@ -80,7 +75,6 @@ useEffect(()=>{
       temp=temp.filter((listing)=>{
         return listing.parking===true;
       })
-      console.log(temp);
     }
      if(filtersState.furnished){
       temp=temp.filter((listing)=>{
@@ -101,8 +95,6 @@ useEffect(()=>{
         temp=temp.sort((a,b)=>new Date(a.createdAt)-new Date(b.createdAt));
       }
     }
-    setdata(dataBackup);
-
     dispatch(getListingsSuccess(temp));
     dispatch(setFilters(filtersState));
   };

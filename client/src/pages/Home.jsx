@@ -4,10 +4,9 @@ import { GiHouseKeys } from "react-icons/gi";
 import { IoHome } from "react-icons/io5";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Card from "../components/Card";
-
 function Home() {
   const [RecentListings, setRecentListings] = useState([]);
   const { currentUser } = useSelector((state) => state.user);
@@ -23,6 +22,9 @@ function Home() {
     };
     fetch_listings();
   }, []);
+
+
+
   return (
     <>
       <div className="">
