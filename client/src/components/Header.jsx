@@ -10,21 +10,21 @@ const Header = () => {
   return (
     <div className="bg-slate-200 shadow-md  ">
       <div className="flex justify-between items-center max-w-6xl mx-auto p-3">
-        <Link to={'/'} className="font-bold text-sm sm:text-xl flex flex-wrap cursor-pointer ">
-          <span className="text-slate-500 text-2xl ">Estate</span>
-          <span className="text-slate-500 text-2xl ">Zone</span>
+        <Link to={'/'} className="font-bold text-[16px] sm:text-xl flex flex-wrap cursor-pointer ">
+          <span className="text-slate-500">Estate</span>
+          <span className="text-slate-500  ">Zone</span>
         </Link>
         <form className="bg-slate-100  rounded-[5px] flex items-center " action="">
           <input
             type="text"
             name=""
             id=""
-            className="bg-transparent focus:outline-none py-[10px] pl-3 w-27 sm:w-64 "
+            className="  bg-transparent focus:outline-none py-[10px] pl-3 w-[150px] sm:w-64 "
             placeholder="Search..."
           />
           <FaSearch className="text-slate-600 mr-2 " />
         </form>
-        <ul className="flex gap-4 items-center ">
+        <ul className="flex gap-4 items-center ml-[-36px] sm:ml-1 ">
           <Link to={"/"}>
             <li className="hidden sm:inline  hover:border-b-2 border-[#2a2a2a]  cursor-pointer ">
               Home
@@ -32,7 +32,7 @@ const Header = () => {
           </Link>
           <Link to={"/about"}>
             {" "}
-            <li className="  hover:border-b-2 border-[#2a2a2a]  cursor-pointer ">
+            <li className=" hidden sm:inline  hover:border-b-2 border-[#2a2a2a]  cursor-pointer ">
               About
             </li>
           </Link>
