@@ -29,9 +29,11 @@ function Search() {
   },[Listings])
 
   return (
-    <div className= '   flex bg-[#f1f5f1]   ' >
-      <Filter/>
-      <div className='p-8 border-b border-gray-300 w-[74%] ' >
+    <div className= '  flex flex-col sm:flex-row bg-[#f1f5f1]   ' >
+      <div>
+        <Filter/>
+      </div>
+      <div className=' w-[full] p-8 border-b border-gray-300 sm:w-[74%] ' >
         <h1 className='font-semibold text-[#334155] text-3xl text-center ' >All Listings</h1>
         {
           (data.length>0)?

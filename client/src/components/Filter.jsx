@@ -100,15 +100,16 @@ function Filter() {
   };
 
   return (
-    <div className="w-[26%] h-full border-r border-gray-300  px-4 pt-8 flex flex-col gap-7 ">
+    <div className="w-[full] h-full border-r border-gray-300  px-4 pt-8 flex flex-col gap-7 ">
       <div className="flex gap-2 items-center ">
         <h1>Searching For :</h1>
-        <input className="py-[6px] px-1 focus:outline-none border-solid border-[1px] border-gray-300" onChange={(e)=>{handleChange(e)}} type="text" name="searchTerm" id="searchTerm" placeholder="search..." />
+        <input className=" w-[60%] py-[6px] px-1 focus:outline-none border-solid border-[1px] border-gray-300" onChange={(e)=>{handleChange(e)}} type="text" name="searchTerm" id="searchTerm" placeholder="search..." />
       </div>
-      <div className="flex-col gap-2">
-        <h1 className="mb-3">Type:</h1>
-        <div>
+      <div className=" flex items-start flex-row gap-3 sm:flex-col sm:gap-5">
+        <h1 className=" ">Type:</h1>
+        <div className="ml-[-10px]" >
           <input
+          className="w-4 h-4 mr-1 "
             checked={filtersState.type === "rentandsell"}
             onChange={(e) => {
               handleChange(e);
@@ -121,6 +122,7 @@ function Filter() {
         </div>
         <div>
           <input
+          className="w-4 h-4 mr-1 "
             checked={filtersState.type === "rent"}
             onChange={(e) => {
               handleChange(e);
@@ -133,6 +135,7 @@ function Filter() {
         </div>
         <div>
           <input
+          className="w-4 h-4 mr-1 "
             checked={filtersState.type === "sell"}
             onChange={(e) => {
               handleChange(e);
@@ -145,6 +148,7 @@ function Filter() {
         </div>
         <div>
           <input
+          className="w-4 h-4 mr-2 "
             onChange={(e) => {
               handleChange(e);
             }}
@@ -155,10 +159,11 @@ function Filter() {
           <label htmlFor="offer">Offer</label>
         </div>
       </div>
-      <div className="flex flex-col ">
+      <div className="flex flex-row gap-3 sm:flex-col ">
         <h1 className="mb-3">Amenities:</h1>
         <div>
           <input
+          className="w-4 h-4 mr-2 "
             onChange={(e) => {
               handleChange(e);
             }}
@@ -170,6 +175,7 @@ function Filter() {
         </div>
         <div>
           <input
+              className="w-4 h-4 mr-2 "
             onChange={(e) => {
               handleChange(e);
             }}
@@ -180,9 +186,10 @@ function Filter() {
           <label htmlFor="furnished">Furnished</label>
         </div>
       </div>
-      <div>
+      <div className="flex gap-2 items-center " >
         <h1>Sort By:</h1>
         <select
+        className="py-[6px] px-[3px] border"
           onChange={(e) => {
             handleChange(e);
           }}

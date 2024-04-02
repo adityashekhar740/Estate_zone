@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import Home_bg from "../assets/Home_bg.jpg";
 import { GiHouseKeys } from "react-icons/gi";
 import { IoHome } from "react-icons/io5";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import axios from "axios";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Card from "../components/Card";
 function Home() {
@@ -23,11 +23,10 @@ function Home() {
     fetch_listings();
   }, []);
 
-
-
   return (
     <>
       <div className="">
+
         <div className="w-full h-[92vh] relative flex   ">
           <h1 className="absolute top-[5%] sm:top-[14%] left-[7%]  w-[60%] transitio duration-500  md:w-[50%] font-semibold  text-[white] z-3 text-[50px] ">
             Find your next <span className="text-black">perfect</span> place 🏠
@@ -43,9 +42,8 @@ function Home() {
               comfortable. Our expert support are always available.
             </p>
             {/*  */}
-            <div className="  flex  sm:flex sm:flex-col mt-[5%] h-[44%] w-full gap-[5%] ">
+            <div className="  flex  sm:flex sm:flex-col mt-[5%] h-[44%] sm:h-[50%] w-full gap-[5%] ">
               <div className=" h-[80%] sm:h-[40%]  w-[50%] sm:w-full mt-[5%]  ">
-                <IoHome className="  hidden sm:block absolute top-[45%] text-gray-200 left-[23.5%] text-[36px] " />
                 <NavLink
                   to={"/search"}
                   className=" text-[12px] flex justify-center items-center bg-red-500 w-full h-full text-white sm:text-lg rounded-sm hover:bg-red-600"
@@ -54,7 +52,6 @@ function Home() {
                 </NavLink>
               </div>
               <div className="h-[80%] sm:h-[40%] w-[50%] sm:w-full relative mt-[5%] ">
-                <GiHouseKeys className=" hidden sm:block absolute top-[31%] text-gray-200 left-[20%] text-[36px] " />
                 <NavLink
                   to={"/create-listing"}
                   className=" text-[12px] flex justify-center items-center bg-green-500 w-full h-full text-white sm:text-lg rounded-sm hover:bg-green-600 "
@@ -69,7 +66,13 @@ function Home() {
             src={Home_bg}
             alt=""
           />
+          {/* <div className="modal top-0 left-0 absolute bg-red-500 z-[11] w-[50%] h-[50%] ">
+            Login/Create Account to Access more Functionalities...
+            <Link>Login</Link>
+          </div> */}
           <div className=" z-1  overlay absolute w-[100%] h-[100%] rounded-b-[90px] top-0 left-0 bg-black opacity-[27%] "></div>
+        {/* <div className="overlay z-10  absolute w-[100%] h-[100%]  top-0 left-0 bg-black opacity-[50%] "></div> */}
+          
         </div>
         <section className="h-[75vh] w-[80%] mx-auto p-4 bg-[#f1f5f1] ">
           <h1 className="text-center text-[30px] mt-5 uppercase font-semibold">
