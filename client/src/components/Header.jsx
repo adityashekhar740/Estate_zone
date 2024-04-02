@@ -11,7 +11,7 @@ const Header = () => {
     <div className="bg-slate-200 shadow-md  ">
       <div className="flex justify-between items-center max-w-6xl mx-auto p-3">
         <Link to={'/'} className="font-bold text-[16px] sm:text-xl flex flex-wrap cursor-pointer ">
-          <span className="text-slate-500">state</span>
+          <span className="text-slate-500">Estate</span>
           <span className="text-slate-500  ">Zone</span>
         </Link>
         <form className="bg-slate-100  rounded-[5px] flex items-center " action="">

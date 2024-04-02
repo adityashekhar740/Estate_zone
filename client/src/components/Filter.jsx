@@ -101,9 +101,9 @@ function Filter() {
 
   return (
     <div className="w-[26%] h-full border-r border-gray-300  px-4 pt-8 flex flex-col gap-7 ">
-      <div className="flex gap-2">
-        <h1>Search Result For:</h1>
-        <input onChange={(e)=>{handleChange(e)}} type="text" name="searchTerm" id="searchTerm" />
+      <div className="flex gap-2 items-center ">
+        <h1>Searching For :</h1>
+        <input className="py-[6px] px-1 focus:outline-none border-solid border-[1px] border-gray-300" onChange={(e)=>{handleChange(e)}} type="text" name="searchTerm" id="searchTerm" placeholder="search..." />
       </div>
       <div className="flex-col gap-2">
         <h1 className="mb-3">Type:</h1>
@@ -199,7 +199,7 @@ function Filter() {
         onClick={(e) => {
           handleSubmit(e);
         }}
-        className="uppercase bg-[#334155] text-white py-3 px-2 rounded-lg "
+        className="uppercase bg-[#334155] text-white py-3 px-2 rounded-sm "
       >
         search
       </button>
