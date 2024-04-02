@@ -29,12 +29,12 @@ function Home() {
     <>
       <div className="">
         <div className="w-full h-[92vh] relative flex   ">
-          <h1 className="absolute top-[14%] left-[7%]  w-[60%] transitio duration-500  md:w-[50%] font-semibold  text-[white] z-3 text-[50px] ">
+          <h1 className="absolute top-[5%] sm:top-[14%] left-[7%]  w-[60%] transitio duration-500  md:w-[50%] font-semibold  text-[white] z-3 text-[50px] ">
             Find your next <span className="text-black">perfect</span> place 🏠
             with ease...
           </h1>
           {/*  */}
-          <div className="  top-[69%] left-[15%] w-[70%] p-4 h-[22%]  sm:h-[70%] sm:w-[30%] absolute sm:left-[64%] sm:top-[15%] bg-white  z-3 rounded-sm ">
+          <div className="  top-[60%]  left-[15%] w-[70%] p-4 h-[25%]  sm:h-[70%] sm:w-[30%] absolute sm:left-[64%] sm:top-[15%] bg-white  z-3 rounded-sm ">
             <h1 className=" mt-[1%] text-center text-[20px] md:text-[30px] sm:mt-[7%] font-bold ">
               NAMASTE
             </h1>
