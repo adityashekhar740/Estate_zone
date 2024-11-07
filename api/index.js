@@ -21,7 +21,10 @@ app.use(express.json());          // this will allow  us to send json to the ser
 app.use(cookieParser());
 const cors= require('cors');
 
-app.use(cors());
+app.use(cors({
+  origin:'https://localhost:5173',
+  credentials:true
+}));
 app.use('/api/user',userRouter);
 app.use('/api/auth',authRouter);
 app.use('/api/listing',listingRouter);

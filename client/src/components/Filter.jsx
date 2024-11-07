@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import {
   getListingsStart,
   getListingsSuccess,
@@ -16,11 +17,21 @@ function Filter() {
     furnished: false,
     sort: "latest",
   });
-  const [data, setdata] = useState([]);
+  const [data, setdata] = useState([])
+  // const [first, setfirst] = useState(true);
   const { Listings, loading, error } = useSelector((state) => state.Listings);
   const { filters } = useSelector((state) => state.filter);
   useEffect(() => {
-    setdata(Listings);
+    // if(first){
+    //   setdata(Listings);
+    //   console.log("hey");
+    // }
+    // setfirst(false);
+    const fetch_data=async()=>{
+      const res=await axios.get('/api/listing/listings');
+      setdata(res.data);
+    }
+    fetch_data();
     }, []);
  
  
@@ -45,7 +56,6 @@ function Filter() {
   
 
   const handleSubmit = (e) => {
-
     var temp=[...data];
     if(filtersState.searchTerm){
      temp= temp.filter((listting)=>{

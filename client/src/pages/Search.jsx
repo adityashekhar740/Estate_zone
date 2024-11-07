@@ -4,6 +4,7 @@ import axios from 'axios';
 import { getListingsStart,getListingsSuccess,getListingsFailure } from '../redux/Listings/Listings';
 import { useSelector,useDispatch } from 'react-redux';
 import Card from '../components/Card';
+import Cookies from 'js-cookie';
 
 function Search() {
   const [data,setdata]=useState([]);
@@ -15,6 +16,7 @@ function Search() {
      try{
       const res=await axios.get('/api/listing/listings');
      dispatch(getListingsSuccess(res.data));
+     setdata(res.data);
      }
      catch(e){
       console.log(e);
@@ -35,6 +37,7 @@ function Search() {
       </div>
       <div className=' w-[full] p-8 border-b border-gray-300 sm:w-[74%] ' >
         <h1 className='font-semibold text-[#334155] text-3xl text-center ' >All Listings</h1>
+        {data.length>0?<p className='text-center' > <span className='text-red-600 font-semibold' >{data.length}</span> <span className='text-gray-600' >Results</span> </p>:null}
         {
           (data.length>0)?
           <div className='w-full flex flex-wrap gap-4 justify-center mt-10 ' >

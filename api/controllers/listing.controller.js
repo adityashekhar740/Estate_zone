@@ -48,7 +48,7 @@ const GetListing=async(req,res)=>{
 const UpdateListing=async(req,res)=>{
     const listing=await Listing.findById({_id:req.params.id});
     if(!listing){
-        res.status(400).json('No Listing found');
+        res.status(404).json('No Listing found');
         return;
     }
 
@@ -104,7 +104,6 @@ const sendMsg= async(req,res)=>{
 const showRecentListings=async(req,res)=>{
     try{
         const allListings=await Listing.find().sort({createdAt:-1}).limit(3);
-    console.log(allListings);
     res.status(200).json(allListings);
    
     }

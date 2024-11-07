@@ -11,13 +11,35 @@ import Create_listing from "./pages/Create_listing";
 import EditListing from "./pages/EditListing";
 import Listing from "./pages/Listing";
 import Search from "./pages/Search";
-import { useSelector } from "react-redux";
+import {CookiesProvider} from 'react-cookie';
+import axios from "axios";
+import { useDispatch,useSelector } from "react-redux";
+import { LogOutStart,LogOutSuccess } from "./redux/user/userSlice";
 
 function App() {
+  const dispatch=useDispatch();
+  const {currentUser}=useSelector((state)=>state.user);
+
+
+  useEffect(()=>{
+    const checkCookie=async()=>{
+      try{
+      const res=await axios.get('/api/auth/getCookie',{ withCredentials: true });
+      if(!res.data.access_token){
+        dispatch(LogOutStart());
+        dispatch(LogOutSuccess());
+      }
+      }
+      catch(e){
+        console.log(e);
+      }
+    }
+    checkCookie();
+  },[])
  
   return (
    <>
-    <BrowserRouter>
+      <BrowserRouter>
     <Header/>
       <Routes>
         <Route path="/" element={<Home />} />

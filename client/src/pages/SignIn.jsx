@@ -54,7 +54,7 @@ function SignIn() {
           disabled={loading}
           className="bg-slate-700 disabled:opacity-80 text-white p-3 rounded-lg uppercase hover:opacity-95 "
         >
-          {loading?'loading...':'sign up'}
+          {loading?'loading...':'sign in'}
         </button>
         <OAuth/>
       </form>
