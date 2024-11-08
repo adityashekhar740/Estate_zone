@@ -86,12 +86,12 @@ const logout = (req, res) => {
 const getCookie=(req,res)=>{
  try{
    const token=req.cookies.access_token;
-   if(!token)res.status(401).json('unauthorized');
-  res.status(200).json({access_token:token});
+  res.status(200).json(token);
  }
  catch(e){
   res.status(500).json('INTERNAL SERVER ERROR');
  }
+
 
   }
 

@@ -24,8 +24,8 @@ function App() {
   useEffect(()=>{
     const checkCookie=async()=>{
       try{
-      const res=await axios.get('/api/auth/getCookie',{ withCredentials: true });
-      if(!res.data.access_token){
+        const res=await axios.get('/api/auth/getCookie',{withCredentials:true});
+      if(!res.data){
         dispatch(LogOutStart());
         dispatch(LogOutSuccess());
       }
@@ -33,9 +33,14 @@ function App() {
       catch(e){
         console.log(e);
       }
+      
+     
     }
-    checkCookie();
-  },[])
+  
+      checkCookie();
+    
+    
+  },[]);
  
   return (
    <>
